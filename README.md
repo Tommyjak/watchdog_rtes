@@ -19,7 +19,7 @@ This project is a simple implementation of a Real-Time Embedded System (RTES) us
    N.B: I suggest you clone it in /home/your_username/Documents/
 
 # Coding
-If you are 
+If you are able to resolve all the issues and you have the Raspberry Pi Pico board, you can start coding in the src/serial directory in the .c file.
 
 ## Important note
 You'll need to install some packages and tool and i don't remember all of them, we'll se together.
