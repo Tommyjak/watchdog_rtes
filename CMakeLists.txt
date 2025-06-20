@@ -47,7 +47,7 @@ endfunction()
 # add_subdirectory_exclude_platforms(blink_simple)
 
 # Add hello world example
-add_subdirectory_exclude_platforms(hello_world)
+add_subdirectory_exclude_platforms(src)
 
 add_compile_options(-Wall
         -Wno-format          # int != int32_t as far as the compiler is concerned because gcc has int32_t as long int

@@ -21,6 +21,23 @@ This project is a simple implementation of a Real-Time Embedded System (RTES) us
 # Coding
 If you are able to resolve all the issues and you have the Raspberry Pi Pico board, you can start coding in the src/serial directory in the .c file.
 
+# Compiling and running
+1. Open a terminal and navigate to the project directory:
+   ```bash
+   cd /home/your_username/Documents/watchdog_rtes
+   ```
+2. Run the following commands:
+   ```bash
+   ./setenv
+   ./compile.sh
+   ```
+3. If no errors are reported, you've successfully compiled the project and flashed the firmware to the Raspberry Pi Pico board.
+4. To see the output of Raspberry Pi Pico, execute the following command:
+   ```bash
+   minicom -D /dev/ttyACM0 -b 9600
+   ```
+5. To exit the minicom interface press `Ctrl + A` followed by `X` and then `Enter`.
+
 ## Important note
 You'll need to install some packages and tool and i don't remember all of them, we'll se together.
 Some of the are: gcc, cmake, ...

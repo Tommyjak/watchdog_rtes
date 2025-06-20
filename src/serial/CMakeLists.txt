@@ -1,6 +1,6 @@
 add_executable(hello_serial
-        hello_serial.c
-        )
+	main.c
+)
 
 # pull in common dependencies
 target_link_libraries(hello_serial pico_stdlib)
