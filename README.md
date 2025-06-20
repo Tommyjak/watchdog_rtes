@@ -28,7 +28,7 @@ If you are able to resolve all the issues and you have the Raspberry Pi Pico boa
    ```
 2. Run the following commands:
    ```bash
-   ./setenv
+   source setenv
    ./compile.sh
    ```
 3. If no errors are reported, you've successfully compiled the project and flashed the firmware to the Raspberry Pi Pico board.

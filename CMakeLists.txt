@@ -46,7 +46,7 @@ endfunction()
 # add_subdirectory_exclude_platforms(blink)
 # add_subdirectory_exclude_platforms(blink_simple)
 
-# Add hello world example
+# Add src example
 add_subdirectory_exclude_platforms(src)
 
 add_compile_options(-Wall
