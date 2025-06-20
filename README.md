@@ -6,12 +6,14 @@ This project is a simple implementation of a Real-Time Embedded System (RTES) us
 2. Clone this repository to you local machine:
    ```bash
    git clone https://github.com/Tommyjak/watchdog_rtes.git
+   ```
 
    N.B: I suggest you clone it in /home/your_username/Documents/
 
 3. Clone the following repository to your local machine:
    ```bash
    git clone https://github.com/raspberrypi/pico-sdk.git
+    ```
 
    N.B: I suggest you clone it in /home/your_username/Documents/
 
