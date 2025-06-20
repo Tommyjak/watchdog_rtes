@@ -11,6 +11,7 @@ int main() {
     stdio_init_all();
     while (true) {
         printf("Hello, world!\n");
+        printf("Just to try.\n");
         sleep_ms(1000);
     }
 }
