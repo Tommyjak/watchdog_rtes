@@ -18,6 +18,13 @@ This project is a simple implementation of a Real-Time Embedded System (RTES) us
 
    N.B: I suggest you clone it in /home/your_username/Documents/
 
+4. Clone the following repository to your local machine:
+   ```bash
+   git clone https://github.com/FreeRTOS/FreeRTOS-Kernel.git
+    ```
+
+   N.B: I suggest you clone it in /home/your_username/Documents/
+
 # Coding
 If you are able to resolve all the issues and you have the Raspberry Pi Pico board, you can start coding in the src/serial directory in the .c file.
 
@@ -36,6 +43,10 @@ If you are able to resolve all the issues and you have the Raspberry Pi Pico boa
    ```bash
    minicom -D /dev/ttyACM0 -b 9600
    ```
+
+   IMP! To make sure the Raspberry Pi Pico is accessible via the file /dev/ttyACM0, you need to add the command:
+   `stdio_init_all();`
+   in the main.c file of the src/serial directory.
 5. To exit the minicom interface press `Ctrl + A` followed by `X` and then `Enter`.
 
 ## Important note

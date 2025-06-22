@@ -22,7 +22,6 @@ endif()
 
 # Initialize the SDK
 pico_sdk_init()
-
 include(example_auto_set_url.cmake)
 
 function(add_subdirectory_exclude_platforms NAME)
