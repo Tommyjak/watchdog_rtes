@@ -28,6 +28,8 @@ This project is a simple implementation of a Real-Time Embedded System (RTES) us
 # Coding
 If you are able to resolve all the issues and you have the Raspberry Pi Pico board, you can start coding in the src/serial directory in the .c file.
 
+In the main.c file, you can select the mode of operation (SEQ_MODE or CONC_MODE) by uncommenting the corresponding line. The SEQ_MODE is for sequential implementation of the execution, while the CONC_MODE is for concurrent execution, with shared memory, synchronization and generally Real-Time concepts.
+
 # Compiling and running
 1. Open a terminal and navigate to the project directory:
    ```bash
