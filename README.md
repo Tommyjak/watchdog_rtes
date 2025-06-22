@@ -30,6 +30,8 @@ If you are able to resolve all the issues and you have the Raspberry Pi Pico boa
 
 In the main.c file, you can select the mode of operation (SEQ_MODE or CONC_MODE) by uncommenting the corresponding line. The SEQ_MODE is for sequential implementation of the execution, while the CONC_MODE is for concurrent execution, with shared memory, synchronization and generally Real-Time concepts.
 
+N.B: As of today (22/06/2025), the sequential approach is up-and-running, while the concurrent approach is still to be tackled.
+
 # Compiling and running
 1. Open a terminal and navigate to the project directory:
    ```bash
