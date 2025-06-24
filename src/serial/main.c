@@ -27,8 +27,6 @@ void init_shared_resource(struct SharedResource *res) {
 void checker_task(struct SharedResource *res){
     if (res->data >= THRESHOLD){
         printf("Checker Task: Data exceeds threshold (%d >= %d)\n", res->data, THRESHOLD);
-    } else {
-        printf("Checker Task: Data is within threshold (%d < %d)\n", res->data, THRESHOLD);
     }
 }
 void incrementer_task(struct SharedResource *res){
@@ -45,7 +43,7 @@ void random_fault_task(struct SharedResource *res){
     gpio_put(LED_PIN, 1); // Turn on LED to signal fault
     while(true){
         printf("Random Fault Task: Simulating random fault...\n");
-        sleep_ms(500); // Avoid terminal flooding
+        //sleep_ms(500); // Avoid terminal flooding
     }
 }
 
@@ -58,6 +56,8 @@ int main() {
     gpio_set_dir(LED_PIN, GPIO_OUT);
     gpio_put(LED_PIN, 0); // Turn off LED at start
 
+    sleep_ms(5000); // Allow time for serial to initialize
+
     // Infinite loop to simulate task execution
     while (true) {
         init_shared_resource(&shared_resource);
@@ -68,6 +68,14 @@ int main() {
         if (rand() % 1000 == 10) {
             random_fault_task(&shared_resource);
         }
+
+        // The following instructions (commented) are for plotting clarity only
+        /*
+        if (rand() % 10 == 0) {
+            random_fault_task(&shared_resource);
+        }
+        */
+
         resetter_task(&shared_resource);
     }
 }
