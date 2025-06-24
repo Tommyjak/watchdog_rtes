@@ -6,10 +6,10 @@
 #include "semphr.h"
 #include "task.h"
 
-#define THRESHOLD 10 //__INT16_MAX__
+#define THRESHOLD __INT8_MAX__
 
 struct SharedResource {
-    __int16_t data;
+    __int8_t data;
 } shared_resource;
 
 void init_shared_resource(struct SharedResource *res) {
@@ -98,6 +98,8 @@ int main() {
     // Initialization of serial communication
     stdio_init_all();
 
+    sleep_ms(5000); // Allow time for serial to initialize
+
     // Initialization of the shared resource
     init_shared_resource(&shared_resource);
 
@@ -134,6 +136,7 @@ void checker_task(void *pvParameters) {
 
         // Start measuring execution time
         TickType_t start = xTaskGetTickCount();
+        printf("Checker Task: Starting execution at tick %lu\n", start);
 
         //-----------TASK BODY-----------
         
@@ -157,10 +160,8 @@ void checker_task(void *pvParameters) {
 
             // Recreate it (fresh start)
             xTaskCreate(random_fault_task, "Random Fault Task", 256, res, 2, &faultHandle);
-            printf("Checker Task: Fault task restarted.\n");
+            printf("------------------------------Checker Task: Fault task restarted.------------------------------\n");
 
-        } else {
-            printf("Checker Task: Data is within threshold (%d < %d)\n", res->data, THRESHOLD);
         }
 
         // Simulate execution time
@@ -172,13 +173,13 @@ void checker_task(void *pvParameters) {
         //-----------END TASK BODY-----------
 
         TickType_t end = xTaskGetTickCount();
+        printf("Checker Task: Finished execution at tick %lu\n", end);
         TickType_t exec_time = end - start;
+        printf("Checker Task: Execution time = %lu ticks\n", exec_time);
 
         // Check if task missed its deadline
         if (exec_time > pdMS_TO_TICKS(PERIOD_CHECKER)) {
-            printf("Deadline MISSED by Checker! Exec time: %lu ticks\n", exec_time);
-        } else {
-            printf("Deadline met by Checker. Exec time: %lu ticks\n", exec_time);
+            printf("Deadline MISSED by Checker!\n");
         }
 
         // Wait until the start of the next period
@@ -197,6 +198,7 @@ void incrementer_task(void *pvParameters) {
 
         // Measure start time
         TickType_t start = xTaskGetTickCount();
+        printf("Incrementer Task: Starting execution at tick %lu\n", start);
 
         //-----------TASK BODY-----------
 
@@ -217,15 +219,15 @@ void incrementer_task(void *pvParameters) {
 
         // Measure end time
         TickType_t end = xTaskGetTickCount();
+        printf("Incrementer Task: Finished execution at tick %lu\n", end);
 
         // Calculate execution time
         TickType_t exec_time = end - start;
+        printf("Incrementer Task: Execution time = %lu ticks\n", exec_time);
 
         // Check if task missed its deadline
         if (exec_time > pdMS_TO_TICKS(PERIOD_INCREMENTER)) {
-            printf("Deadline MISSED by Incrementer! Exec time: %lu ticks\n", exec_time);
-        } else {
-            printf("Deadline met by Incrementer. Exec time: %lu ticks\n", exec_time);
+            printf("Deadline MISSED by Incrementer!\n");
         }
 
         // Wait until the start of the next period
@@ -244,6 +246,7 @@ void resetter_task(void *pvParameters) {
         
         // Measure start time
         TickType_t start = xTaskGetTickCount();
+        printf("Resetter Task: Starting execution at tick %lu\n", start);
 
         //-----------TASK BODY-----------
 
@@ -264,15 +267,15 @@ void resetter_task(void *pvParameters) {
 
         // Measure end time
         TickType_t end = xTaskGetTickCount();
+        printf("Resetter Task: Finished execution at tick %lu\n", end);
 
         // Calculate execution time
         TickType_t exec_time = end - start;
+        printf("Resetter Task: Execution time = %lu ticks\n", exec_time);
 
         // Check if task missed its deadline
         if (exec_time > pdMS_TO_TICKS(PERIOD_RESETTER)) {
-            printf("Deadline MISSED by Resetter! Exec time: %lu ticks\n", exec_time);
-        } else {
-            printf("Deadline met by Resetter. Exec time: %lu ticks\n", exec_time);
+            printf("Deadline MISSED by Resetter!\n");
         }
 
         // Wait until the start of the next period
@@ -286,14 +289,13 @@ void random_fault_task(void *pvParameters) {
 
     // Simula un tempo di funzionamento corretto prima del fault
 
-    vTaskDelay(pdMS_TO_TICKS(1000));  // 1 second(s)
+    vTaskDelay(pdMS_TO_TICKS(10000));  // 10 second(s)
 
     for ( ;; ) {
         // Randomly (0.1% chance) trigger the random fault task
-        if (rand() % 10000 == 10) {
-            for ( ;; ) {
-                printf("Random Fault Task: Simulating random fault...\n");
-            }
+        if (rand() % 100000 == 10) {
+            printf("Random Fault Task: Simulating random fault\n");
+            for ( ;; ) {}
         }
     }
 
