@@ -62,7 +62,7 @@ You'll need to install some packages and tool and i don't remember all of them, 
 Some of the are: gcc, cmake, ...
 
 # TODO
-- Remove lines of print to clean up the output.
-- Implement a fetching of data from logs of output to plot shared resource increasement and reset over time.
+- ~~Remove lines of print to clean up the output.~~
+- ~~Implement a fetching of data from logs of output to plot shared resource increasement and reset over time.~~
 - Prepare a theoretical report of the project.
 - Prepare a presentation (.pptx or canvas) of the project. 
