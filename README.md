@@ -49,7 +49,13 @@ In the main.c file, you can select the mode of operation (SEQ_MODE or CONC_MODE)
    IMP! To make sure the Raspberry Pi Pico is accessible via the file /dev/ttyACM0, you need to add the command:
    `stdio_init_all();`
    in the main.c file of the src/serial directory.
-5. To exit the minicom interface press `Ctrl + A` followed by `X` and then `Enter`.
+
+5. To save the logs from the minicom interface, you can use the `Ctrl + A` followed by `L`. Then define the file name as "minicom.log" and press `Enter`. This will save the logs to the file "minicom.log" in the current directory (home).
+6. To exit the minicom interface press `Ctrl + A` followed by `X` and then `Enter`.
+7. From the watchdog_rtes directory run the following command to plot the data:
+   ```bash
+   ./plot.sh
+   ```
 
 ## Important note
 You'll need to install some packages and tool and i don't remember all of them, we'll se together.
