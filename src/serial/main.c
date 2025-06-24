@@ -8,6 +8,8 @@
 
 #define THRESHOLD __INT8_MAX__
 
+#define LED_PIN 25  // GPIO of the integrated LED on the Pico
+
 struct SharedResource {
     __int8_t data;
 } shared_resource;
@@ -21,8 +23,6 @@ void init_shared_resource(struct SharedResource *res) {
 
 #ifdef SEQ_MODE
 // Sequential mode: Tasks run one after another without concurrency
-
-#define LED_PIN 25  // GPIO of the integrated LED on the Pico
 
 void checker_task(struct SharedResource *res){
     if (res->data >= THRESHOLD){
@@ -100,6 +100,11 @@ int main() {
 
     sleep_ms(5000); // Allow time for serial to initialize
 
+    // Initialize the LED pin
+    gpio_init(LED_PIN);
+    gpio_set_dir(LED_PIN, GPIO_OUT);
+    gpio_put(LED_PIN, 0); // Turn off LED at start
+
     // Initialization of the shared resource
     init_shared_resource(&shared_resource);
 
@@ -157,6 +162,8 @@ void checker_task(void *pvParameters) {
                 faultHandle = NULL;
                 printf("Checker Task: Fault task terminated.\n");
             }
+
+            gpio_put(LED_PIN, 0); // Turn on LED to signal fault
 
             // Recreate it (fresh start)
             xTaskCreate(random_fault_task, "Random Fault Task", 256, res, 2, &faultHandle);
@@ -295,6 +302,7 @@ void random_fault_task(void *pvParameters) {
         // Randomly (0.1% chance) trigger the random fault task
         if (rand() % 100000 == 10) {
             printf("Random Fault Task: Simulating random fault\n");
+            gpio_put(LED_PIN, 1); // Turn on LED to signal fault
             for ( ;; ) {}
         }
     }
