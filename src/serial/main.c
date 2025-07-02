@@ -58,9 +58,10 @@ int main() {
 
     sleep_ms(5000); // Allow time for serial to initialize
 
+    init_shared_resource(&shared_resource);
+
     // Infinite loop to simulate task execution
     while (true) {
-        init_shared_resource(&shared_resource);
         checker_task(&shared_resource);
         incrementer_task(&shared_resource);
 
@@ -105,6 +106,9 @@ void random_fault_task(void *pvParameters);
 int main() {
     // Initialization of serial communication
     stdio_init_all();
+
+    // Initialization of random seed
+    srand(to_ms_since_boot(get_absolute_time()));
 
     sleep_ms(5000); // Allow time for serial to initialize
 
@@ -303,16 +307,17 @@ void random_fault_task(void *pvParameters) {
     struct SharedResource *res = (struct SharedResource *) pvParameters;
 
     // Simula un tempo di funzionamento corretto prima del fault
-
-    vTaskDelay(pdMS_TO_TICKS(10000));  // 10 second(s)
-
+    
     for ( ;; ) {
+        
         // Randomly (0.1% chance) trigger the random fault task
-        if (rand() % 100000 == 10) {
+        if (rand() % 5 == 0) {
             printf("Random Fault Task: Simulating random fault\n");
             gpio_put(LED_PIN, 1); // Turn on LED to signal fault
             for ( ;; ) {}
         }
+        vTaskDelay(pdMS_TO_TICKS(1000));  // 10 second(s)
+
     }
 
 }

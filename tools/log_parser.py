@@ -65,6 +65,7 @@ def plot_conc_first():
     plt.tight_layout()
     plt.savefig("tools/first_iteration_plot.png")
 
+
 def plot_seq():
     current_time = 0
     data_values = []
@@ -112,6 +113,7 @@ def plot_seq():
     plt.grid(True)
     plt.tight_layout()
     plt.savefig("tools/seq_data_plot.png")
+    
 
 if __name__ == "__main__":
     main()
